@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  responseJson: string;
+  constructor(public auth: AuthService, private api: ApiService) { }
 
   ngOnInit() {
+    console.log(this.auth.userProfile$)
+    this.pingApi()
   }
 
+  pingApi() {
+    this.api.ping$().subscribe(
+      games => {
+        console.log(games)
+      },
+      error =>  console.log(error)
+  );
+  }
+    
 }
