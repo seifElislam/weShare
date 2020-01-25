@@ -15,12 +15,25 @@
         <li class="nav-item">
             <a class="nav-link" href="/messages">Messages</a>
         </li>
+
+        <li *ngIf="auth.loggedIn" class="nav-item dropdown " style="position: absolute; right: 70px;" >
+            <img src="{{ userProfile.picture }}" alt="Avatar" class="avatar">
+            <a class="nav-link dropdown-toggle" style="display: inline-block" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ userProfile? userProfile.name : 'user' }}</a>
+            <div class="dropdown-menu" style="">
+              <!-- <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a> -->
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" (click)="auth.logout()">Log Out</a>
+            </div>
+          </li>
     </ul>
 
 </div>
-    
+
+    <!-- <div *ngIf="auth.loggedIn"><span class="badge badge-secondary">{{ userProfile? userProfile.name : 'user' }}</span></div>
     <button class="btn btn-secondary my-2 my-sm-0" style="position: absolute; right: 25px;" (click)="auth.login()"
         *ngIf="!auth.loggedIn">Log In</button>
     <button class="btn btn-secondary my-2 my-sm-0" style="position: absolute; right: 25px;" (click)="auth.logout()"
-        *ngIf="auth.loggedIn">Log Out</button>
+        *ngIf="auth.loggedIn">Log Out</button> -->
 </nav>

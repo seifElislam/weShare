@@ -9,8 +9,9 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent implements OnInit {
 
   constructor(public auth: AuthService) { }
-
+  userProfile: any
   ngOnInit() {
+    this.auth.userProfile$.subscribe(data => {this.userProfile = data})
   }
 
 }
