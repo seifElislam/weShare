@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ApiService } from '../services/api.service';
+import { Todo } from '../types/item'
 
 @Component({
   selector: 'app-home',
@@ -8,21 +9,18 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  responseJson: string;
-  constructor(public auth: AuthService, private api: ApiService) { }
+  userProfile: any
+  todos: Todo[]
+  constructor(public auth: AuthService, private api: ApiService) {}
 
   ngOnInit() {
-    console.log(this.auth.userProfile$)
-    this.pingApi()
+    this.auth.userProfile$.subscribe(data => {this.userProfile = data})
+    this.getAllItems() 
+    
   }
 
-  pingApi() {
-    this.api.ping$().subscribe(
-      games => {
-        console.log(games)
-      },
-      error =>  console.log(error)
-  );
+  getAllItems() {
+    this.api.getItems$().subscribe(res => {this.todos = res['items']})
   }
-    
+
 }
